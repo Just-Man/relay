@@ -9,19 +9,13 @@
 namespace App\Middleware;
 
 
-use Interop\Container\ContainerInterface;
+use App\Constructor;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class CheckTokenCacheMiddleware
+class CheckTokenCacheMiddleware extends Constructor
 {
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
@@ -38,11 +32,14 @@ class CheckTokenCacheMiddleware
         if (isset($_POST['token'])) {
             $token = $request->getParsedBody()['token'];
         }
+
+        $cachedToken = substr($cachedToken, 0, strlen($cachedToken) - 1);
+
         if ($cachedToken == $token) {
             return new JsonResponse(
                 [
                     'data' => false,
-                    'error' => 'Token is blocked'
+                    'error' => 'Token is already used and is blocked'
                 ]
             );
         }

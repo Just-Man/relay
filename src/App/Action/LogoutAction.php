@@ -9,11 +9,12 @@
 namespace App\Action;
 
 
+use App\Constructor;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
-class LogoutAction extends BaseAction
+class LogoutAction extends Constructor
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
@@ -22,6 +23,10 @@ class LogoutAction extends BaseAction
         $token = $request->getParsedBody()['token'];
 
         $success = $cache->set("token", $token, false, 600);
+
+        // $cacheContent = $cache->getAllKeys;
+
+        // file_put_contents("/home/just/Documents/IT/relay/data/cacheContent.txt", json_encode($cacheContent));
 
         if ($success) {
             return new JsonResponse(

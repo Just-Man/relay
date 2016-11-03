@@ -8,19 +8,12 @@
 
 namespace App\Action;
 
-use Interop\Container\ContainerInterface;
+use App\Constructor;
 use Zend\Diactoros\Response\JsonResponse;
 
 
-class BaseAction
+class BaseAction extends Constructor
 {
-    protected $container;
-
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
-
     protected function generateRandomString($length = 6)
     {
         return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&"), 0, $length);

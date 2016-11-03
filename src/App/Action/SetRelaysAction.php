@@ -19,28 +19,21 @@ class SetRelaysAction extends BaseAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         $isSaved = null;
-        $newContent = [];
         $relay = $request->getParsedBody()['relay'];
-        $relay = json_decode($relay);
+        $relay = json_decode($relay, true);
 
         $content = file_get_contents('data/relay.json');
         $content = substr($content, 0);
         $content = json_decode($content, true);
 
-        foreach ($content as $item) {
-
-            if ($item['id'] == $relay->id) {
-                $item = $relay;
-            }
-            $newContent[] = $item;
-        }
-
-        $isSaved = file_put_contents('data/relay.json', json_encode($newContent));
+        $content[$relay["id"]] = $relay;
+        
+        $isSaved = file_put_contents('data/relay.json', json_encode($content));
 
         if ($isSaved) {
             return new JsonResponse(
                 [
-                    'data' => $newContent,
+                    'data' => true,
                     'error' => false,
                 ]
             );

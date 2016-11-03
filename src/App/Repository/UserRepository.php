@@ -83,7 +83,7 @@ class UserRepository extends AbstractRepository
                 if ($count == $len - 1) {
                     $statement .= $key . " = ? WHERE user_id = ?";
                 } else {
-                    $statement .= $key . " ?,";
+                    $statement .= $key . " = ?,";
                 }
                 $values[] = $item;
 
@@ -93,7 +93,6 @@ class UserRepository extends AbstractRepository
             $values[] = $user['user_id'];
 
             $query = $this->connection->prepare($statement);
-
             return $query->execute($values);
         }
     }

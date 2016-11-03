@@ -34,7 +34,12 @@ class CreateMailContentAction
         }
 
         foreach ($mails as $mail) {
-            $response = $response->withStatus(200, $mail);
+            $data = [
+                "mail" => $mail,
+                "user" => $user
+            ];
+
+            $response = $response->withStatus(200, json_encode($data));
             return $next ($request, $response);
         }
 

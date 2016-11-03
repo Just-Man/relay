@@ -36,8 +36,10 @@ class ValidateTokenMiddleware
         $adminName = json_encode($admin['username']);
         $is_admin = json_encode($admin['admin']);
         $user = [
-            'username' => $adminName,
-            'is_admin' => $is_admin,
+            "user" => [
+                        'username' => $adminName,
+                        'is_admin' => $is_admin,
+                    ]
         ];
         
         if ($isValid) {

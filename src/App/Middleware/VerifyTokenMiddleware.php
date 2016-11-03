@@ -33,13 +33,7 @@ class VerifyTokenMiddleware
             $tokenArray = json_decode($request->getParsedBody()['token']);
             $tokenArray = json_decode($tokenArray);
         }
-///////////////////////////////////
-
-//print_r($request->getParsedBody()['token']);
-//    print_r($request->getQueryParams()['token']);
-//die("");
-
-//////////////////////////////////
+        
         $token = (new Parser())->parse((string) $tokenArray[0][1]);
         $isVerify = $token->verify($signer, $key);
 

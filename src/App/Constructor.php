@@ -2,16 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: just
- * Date: 21.10.16
- * Time: 10:50
+ * Date: 31.10.16
+ * Time: 12:32
  */
 
-namespace App\Service;
+namespace App;
 
 
 use Interop\Container\ContainerInterface;
 
-class BaseService
+class Constructor
 {
     protected $container;
 

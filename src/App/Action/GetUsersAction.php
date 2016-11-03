@@ -9,7 +9,6 @@
 namespace App\Action;
 
 
-use Lcobucci\JWT\Parser;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
@@ -21,9 +20,10 @@ class GetUsersAction extends BaseAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         $userRepo = $this->container->get('UserRepository');
-        $user = json_decode($response->getReasonPhrase(), true);
 
-        $this->isAdmin($user);
+        $user = json_decode($response->getReasonPhrase(), true);
+        
+        $this->isAdmin($user['user']);
 
         $users = $userRepo->getUser('', true);
 

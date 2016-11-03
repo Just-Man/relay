@@ -18,7 +18,8 @@ class SendMailAction extends BaseAction
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $data = $response->getReasonPhrase();
+        $data = json_decode($response->getReasonPhrase(), true);
+        $data = $data["mail"];
         
         $mail = new PHPMailer;
         $mail->isSMTP();

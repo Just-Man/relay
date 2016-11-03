@@ -1,9 +1,10 @@
 <?php
 namespace App\Service;
 
+use App\Constructor;
 use Zend\Diactoros\Response\JsonResponse;
 
-class AuthenticationService extends BaseService
+class AuthenticationService extends Constructor
 {
     public function authenticate($payload)
     {

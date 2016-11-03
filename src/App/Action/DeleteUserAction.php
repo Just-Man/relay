@@ -22,7 +22,7 @@ class DeleteUserAction extends BaseAction
         $userRepo = $this->container->get('UserRepository');
         $userForDelete = json_decode($request->getParsedBody()['user'], true);
 
-        $this->isAdmin($user);      
+        $this->isAdmin($user['user']);
 
         $user = $userRepo->deleteUser($userForDelete['user_id']);
 

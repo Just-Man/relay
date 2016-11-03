@@ -19,10 +19,10 @@ return [
         'factories' => [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
-            App\Action\GenerateTokenAction::class => App\Factory\ActionFactory\GenerateTokenFactory::class,
-            App\Action\GetUsersAction::class => App\Factory\ActionFactory\GetUsersFactory::class,
-            App\Action\GetUsersLogAction::class => App\Factory\ActionFactory\GetUsersLogFactory::class,
-            App\Action\SaveUserAction::class => App\Factory\ActionFactory\SaveUserFactory::class,
+            
+            //Models
+            RelayModel::class => App\Factory\ModelFactory\RelayModelFactory::class,
+            UserModel::class => App\Factory\ModelFactory\UserModelFactory::class,
 
             //repositories
             AbstractRepository::class => App\Factory\RepositoryFactory\AbstractRepositoryFactory::class,

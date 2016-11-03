@@ -18,14 +18,22 @@ class SaveUserAction extends BaseAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
-        $user = $response->getReasonPhrase();
+        $user = $response->getReasonPhrase()["model"];
 
         $userRepo = $this->container->get('UserRepository');
 
-        $user['password'] = password_hash($user['password'], PASSWORD_BCRYPT);
+        foreach ($user as $key => $item) {
+            if  (empty($user[$key])) {
+                unset($user[$key]);
+            }
+        }
 
-        $user = $userRepo->saveUser($user);
+        if  (isset($user['password'])) {
+            $user['password'] = password_hash($user['password'], PASSWORD_BCRYPT);
+        }
 
+//"http://www.cafewebmaster.com/check-password-strength-safety-php-and-regex";
+        $user = $userRepo->updateUser($user);
         $memCache = $this->container->get('Memcache');
 
         $is_cached = $memCache->set('token', $request->getParsedBody()['token'], false, 3600);
